@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>算法101</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <style>
+    #root {
+      width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #throttleBind {
+      width: 200px;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="height: 100px;width: 100px;float: left;background: lightblue;">我是一个左浮动的元素</div>
+  <div style="width: 200px; height: 200px;background: #eee">
+    我是一个没有设置浮动,
+    也没有触发 BFC 元素, width: 200px; height:200px; background: #eee;
+  </div>
+  <div id="root">
+    <button id="throttleBind">节流</button>
+  </div>
+
+  <div class="flex-wrap">
+    <div class="header">
+      头部
+    </div>
+    <div class="main">
+      main
+    </div>
+    <div class="footer">
+      底部
+    </div>
+  </div>
+
+  <script>
+    function log(info) {
+      console.log(info)
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="module" src="../js/index.js"></script>
+  <script src="../utils/debounce-and-throttle.js"></script>
+  <script>
+    addEventListener('onresize', function (e) {
+      console.log(e)
+    })
+    window.onresize = function (e) {
+      console.log(e)
+    }
+  </script>
+</body>
+
+</html>
