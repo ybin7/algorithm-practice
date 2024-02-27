@@ -3,4 +3,7 @@
 // import './chapter-2.js'
 // import './handwritten-source-code.js'
 // import './sort.js'; // 排序
-import './dynamic-programming.js'
+// import './dynamic-programming.js'
+import './test.js'
+
+// import './decorator.js'

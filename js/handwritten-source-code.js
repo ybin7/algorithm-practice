@@ -45,6 +45,49 @@ Function.prototype.myBind = function (content = window, ...args) {
   }
 }
 
+/**
+ * @desc
+ * 1. bind() 方法会创建一个新函数。
+ * 当这个新函数被调用时，bind() 的第一个参数将作为它运行时的 this，
+ * 之后的一序列参数将会在传递的实参前传入作为它的参数。
+ * 2. 一个绑定函数也能使用new操作符创建对象：这种行为就像把原函数当成构造器。
+ * 提供的 this 值被忽略，同时调用时的参数被提供给模拟函数。
+ * @param {*} context 
+ * @returns 
+ * 
+ */
+// 实现一个bind
+Function.prototype.myBind = function (ctx) {
+  const params = Array.prototype.slice.call(arguments, 1)
+  var fn = this
+  
+  return function() {
+    const args = Array.prototype.slice.call(arguments)
+    const allArgs = params.concat(args)
+
+    if (new.target) {
+      // const obj = {}
+      // Object.setPrototypeOf(obj, fn.prototype)
+      // fn.apply(obj, allArgs)
+      return new fn(...allArgs)
+    }
+    return fn.apply(ctx, allArgs)
+  }
+}
+
+const obj = {
+  name: 'obj'
+}
+
+function sayName() {
+  console.log('this:', this)
+  console.log('this.name:', this.name)
+}
+
+const _sayName = sayName.myBind2(obj)
+console.log(new _sayName())
+
+
 const obj = {
   value: 1
 }
@@ -70,6 +113,10 @@ function Person(name, age) {
 
 /**
  * 实现一个 new
+ * 1、创建一个对象；
+ * 2、将构造函数作用域赋到创建的对象中(因此this将会指向这个新对象)；
+ * 3、执行构造函数中代码；
+ * 4、返回这个对象
  */
 function myNew() {
   let obj = {}
@@ -78,7 +125,7 @@ function myNew() {
   obj.__proto__ = _constructor.prototype
   const result = _constructor.apply(obj, arguments)
 
-  return result instanceof Object ? result : obj;
+  return result instanceof Object ? result : obj; // 还需要判断返回的值是不是一个对象，如果是一个对象，我们就返回这个对象，如果没有，我们该返回什么就返回什么
 }
 
 const myPerson = myNew(Person, 'ybin', '26')
@@ -98,40 +145,46 @@ function deepClone(obj) {
     return new Date(obj);
   }
 
-  let copyObj = {}
+  let objClone = Array.isArray(obj) ? [] : {};
 
-  for (let key in obj) {
-    if (typeof obj[key] === 'object') {
-      copyObj[key] = deepClone(obj[key])
-    } else if (!obj.hasOwnProperty(key)) {
-      break
-    } else {
-      copyObj[key] = obj[key]
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      //判断ojb子元素是否为对象，如果是，递归复制
+      if (obj[key] && typeof obj[key] === "object") {
+        objClone[key] = deepClone(obj[key]);
+      } else {
+        //如果不是，简单复制
+        objClone[key] = obj[key];
+      }
     }
   }
 
-  return copyObj
+  return objClone;
 }
 
 
 /**
  * 函数柯里化
+ * 1. 参数保存（利用闭包）
+ * 2. 参数的延迟使用
  */
-function curry(fn, args) {
-  let fnLen = fn.length
-  console.log('fnLen', fn.length)
+function curry(fn, ...args) {
   args = args || []
+  console.log(fn, args)
 
-  return function () {
-    console.log('arguments', arguments)
-    let _args = args.concat(Array.prototype.slice.call(arguments))
-    if (_args.length < fnLen) {
-      return curry.call(this, fn, _args);
+  const inner = function () {
+    args.push(...Array.prototype.slice.call(arguments, 0))
+    console.log(args)
+    if (args.length === fn.length) {
+      return fn.apply(this, args)
     } else {
-      return fn.apply(this, _args);
+      return inner
     }
   }
+
+  return inner
 }
+
 
 
 function addNum(a, b, c) {
@@ -175,7 +228,7 @@ class myEvent {
     if (!(type in this.handles)) {
       this.handles[type] = []
     }
-    
+
     this.handles[type].push(handle)
   }
 
@@ -214,7 +267,7 @@ class myEvent {
     }
 
     this.handles[type].splice(idx, 1)
-    
+
     if (this.handles[type].length === 0) {
       delete this.handles[type]
     }
@@ -250,7 +303,7 @@ class Scheduler {
     if (this.count >= this.max) {
       await new Promise(resolve => this.list.push(resolve))
     }
-    
+
     this.count++
 
     const result = await fn()
@@ -266,9 +319,12 @@ class Scheduler {
 
 /**
  * 实现一个 instanceof
+ * 作用：用于检测构造函数的 prototype 属性是否出现在某个实例的原型链上
+ * 实现思路：只要遍历实例对象的原型链，挨个往上找，直到找到最顶层的Object（null）
+ * 还找不到就返回false
  */
 function Instanceof(left, right) {
-  let leftVal = Object.getPrototypeOf(left);
+  let leftVal = Object.getPrototypeOf(left); // getPrototypeOf 是一个用于获取指定对象原型的方法
   const rightVal = right.prototype;
 
   while (leftVal !== null) {
@@ -277,5 +333,52 @@ function Instanceof(left, right) {
   }
   return false;
 }
+
+/**
+ * compose 函数实现
+ * 利用 compose 将两个函数组合成一个函数，让代码从右向左运行，而不是由内而外运行，可读性大大提升。这便是函数组合
+ */
+let add1 = x => x + 10
+let multiply = y => y * 10
+console.log(multiply(add1(10)))
+let compose1 = function () {
+  let args = [].slice.call(arguments)
+
+  return function (x) {
+    return args.reduceRight(function (total, current) {
+      //从右往左执行args里的函数
+      console.log(total, current)
+      return current(total)
+    }, x)
+  }
+}
+let calculate = compose1(multiply, add)
+console.log(calculate, calculate(10)) // 200
+// 用es6实现
+// const compose = (...args) => x => args.reduceRight((res, cb) => cb(res), x)
+
+function Person(name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.getName = function () {
+  console.log(this.name)
+}
+
+function Child() {
+  Person.call(this)
+}
+
+Child.prototype = new Person
+Child.prototype.constructor = Child
+
+// Object.create
+function createObj(o) {
+  function F() { }
+  F.prototype = o
+  return new F()
+}
+
 
 

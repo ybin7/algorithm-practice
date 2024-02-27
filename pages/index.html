@@ -22,6 +22,36 @@
       -webkit-box-orient: vertical;
       text-overflow: ellipsis;
     }
+
+    .parent1 {
+      display: table-cell;
+      width: 400px;
+      height: 200px;
+      background: red;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .parent1 .child1 {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: blue;
+    }
+
+    .max_wrap {
+      transform: scaleX(0.625);
+      background: red;
+      height: 200px;
+    }
+    .triangle {
+      width:0px;
+      height:0px;
+      border-top:10px solid red; 
+      border-right:10px solid transparent;
+      border-bottom:10px solid transparent; 
+      border-left:10px solid transparent;
+    }
   </style>
 </head>
 
@@ -46,6 +76,15 @@
       底部
     </div>
   </div>
+  <div class="parent1">
+    <div class="child1"></div>
+  </div>
+
+  <div class="max_wrap" style="width: 200px !important;">
+
+  </div>
+
+  <div class="triangle"></div>
 
   <script>
     function log(info) {

@@ -62,25 +62,30 @@ function quick(arr = []) {
  * 5. 将新元素插入到下一个位置中
  * 6. 重复步骤2
  */
-function insert(arr = []) {
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] < arr[i - 1]) {
-      let curVal = arr[i]
-      let j = i - 1
-      arr[i] = arr[i - 1]
+function insert (arr = []) {
+  if (!Array.isArray(arr)) return arr
 
-      while (j >= 0 && curVal < arr[j]) {
-        arr[j + 1] = arr[j]
-        j--
-      }
-      
-      arr[j + 1] = curVal
-    }
-  }
+  for (let i = 1; i < arr.length; i++) {  
+    let key = arr[i];  
+    let j = i - 1;  
 
-  return arr
+    // 将大于 key 的元素向后移动  
+    while (j >= 0 && arr[j] > key) {  
+        arr[j + 1] = arr[j];  
+        j = j - 1;  
+    }  
+    arr[j + 1] = key;  
+  }  
+  return arr;  
 }
 
 console.log(insert([1,3,4,2]))
+
+function sleep(dely = 0) {
+  const startTime = new Date().getTime()
+
+  while(new Date().getTime() - startTime < dely)
+    continue
+}
 
 
