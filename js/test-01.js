@@ -76,14 +76,14 @@
   qn4: () => {
     // 以下代码片段, 选择它的打印输出 (省略换行)
     //    ```js
-    //    const a = [];
-    //    for (var i=0; i<10; i++) {
-    //      a.push(function() {
-    //        return console.log(i);
-    //      });
-    //    }
-    //    a[0]();
-    //    a[1]();
+      //  const a = [];
+      //  for (var i=0; i<10; i++) {
+      //    a.push(function() {
+      //      return console.log(i);
+      //    });
+      //  }
+      //  a[0]();
+      //  a[1]();
     //    ```
     //
     // A. 0 1
@@ -94,7 +94,7 @@
     //
     // D. 不打印
 
-    return 'B';
+    return 'C';
   },
 
 

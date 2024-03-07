@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex</title>
+  <style>
+    .flex-wrap {
+      display: flex;
+      width: 1000px;
+    }
+
+    .item {
+      width: 200px;
+      height: 50px;
+      flex-basis: auto;
+
+    }
+
+    .red {
+      background: red;
+    }
+
+    .sky {
+      background: skyblue;
+    }
+
+    .blue {
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-wrap">
+    <div class="item red">1</div>
+    <div class="item sky">2</div>
+    <div class="item blue">3</div>
+  </div>
+</body>
+</html>

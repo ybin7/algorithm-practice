@@ -675,3 +675,55 @@ new Foo().getName() // 3
 new new Foo().getName() // 3
 
 console.log('--------------- 插入一个面试题 end ---------------')
+
+/**
+ * 无重复字符的最长子串
+ * 利用左右指针遍历对比长度
+ * @param {*} s 
+ * @returns 
+ */
+const lengthOfLongestSubstring = function(s) {
+  const map = new Map()
+  let l = 0, // 左指针位置
+      maxLen = 0; // 最长长度
+
+  for (let i = 0; i < s.length; i++) {
+    if (map.has(s[i]) && map.get(s[i]) >= l) {
+        l = map.get(s[i]) + 1 // 修改左指针的位置
+    }
+    maxLen = Math.max(maxLen, i + 1 - l)
+    map.set(s[i], i)
+  }
+  return maxLen
+};
+
+console.log(lengthOfLongestSubstring('abcabcbb'))
+
+
+/**
+ * 
+ * // 输入
+ * nums1 = [1,2,3,0,0,0], m = 3
+ * nums2 = [2,5,6],       n = 3
+ * @returns 输出 [1,2,2,3,5,6]
+ */
+const merge = function(nums1, m, nums2, n) {
+  let len1 = m - 1,
+      len2 = n - 1,
+      len = m + n - 1;
+
+  while(len2 >= 0) {
+      if(len1 < 0) {
+          nums1[len--] = nums2[len2--]
+          continue
+      }
+
+      nums1[len--] = nums1[len1] >= nums2[len2] 
+        ? nums1[len1--]
+        : nums2[len2--]
+  }
+  return nums1
+};
+
+// 调用合并函数
+merge([1,2,3,0,0,0], 3, [2,5,6], 3)

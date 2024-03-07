@@ -144,10 +144,10 @@ console.log('--------------- 报数、反转字符串和字符串中的第一个
 /**
  * 报数
  * 报数序列是一整个序列，按照其中的整数的顺序进行报数，得到下一个数
- * 1. 1
- * 2. 11
- * 3. 21
- * 4. 1211
+ * 1. 1 一个一， 所以下一项为 11
+ * 2. 11 两个一，所以下一项为 21
+ * 3. 21 一个二，一个一，所以下一项为 1211
+ * 4. 1211 一个一，一个二，一个一，一个一 -> 111221
  * 5. 111221
  * @param { number } n
  * @return { string }
@@ -167,6 +167,25 @@ function countAndSay(n) {
   return preResult.replace(/(\d)\1*/g, item => `${item.length}${item[0]}`)
 }
 
+function countAndSay2(n) {
+  const nArr = String(n).split('')
+
+  const obj = new Map()
+  for (const i of nArr) {
+    if (obj.has(i)) {
+      const val = obj.get(i) + 1
+      obj.set(i, val) 
+    } else {
+      obj.set(i, 1) 
+    }
+  }
+  const sArr = []
+  for (const key of obj) {
+    sArr.push(key.reverse().join(''))
+  }
+  console.log(sArr)
+  return Number(sArr.join(''))
+}
 console.log(countAndSay(5))
 
 /**
@@ -282,7 +301,7 @@ console.log('--------------- 验证回文字符串、实现strStr()、最长公�
  * @return { boolean }
  */
 function isPalindrome(s) {
-  const arr = s.toLowerCase().replace(/^[a-zA-Z0-9]\s*/g, '').split('')
+  const arr = s.toLowerCase().replace(/[^a-zA-Z0-9]\s*/g, '').split('')
   
   /**
    * 也可以利用数组的字符串反转
@@ -490,7 +509,7 @@ console.log('--------------- 最长回文子串 start ---------------')
  * 3. 不同长度的子串，根据不同的条件进行判断是否为回文子串
  *  （1）长度为1，一定回文
  *  （2）长度为2或3，判断首尾是否相同
- *  （3）长度大于3，首尾字符相同，且去掉首尾之后的子串仍未回文
+ *  （3）长度大于3，首尾字符相同，且去掉首尾之后的子串仍回文
  * 
  * @param { string } s
  * @returns { string }
@@ -523,6 +542,7 @@ function longestPalindrome(s) {
       }
     }
   }
+
   return str
 }
 

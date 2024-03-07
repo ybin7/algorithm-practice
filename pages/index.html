@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>算法101</title>
+  <title>test</title>
   <link rel="stylesheet" href="../css/index.css">
   <style>
     #root {
@@ -52,6 +52,32 @@
       border-bottom:10px solid transparent; 
       border-left:10px solid transparent;
     }
+
+    .flex-test {
+      width: 200px;
+      display: flex;
+    }
+
+    .flex-test .item1 {
+      background: red;
+      width: 20px;
+    }
+
+    .flex-test .item2 {
+      background: skyblue;
+    }
+
+    .flex-test .item3 {
+      background: blue;
+    }
+  
+    .flex-test .item {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: auto;
+      overflow: hidden;
+
+    }
   </style>
 </head>
 
@@ -85,23 +111,41 @@
   </div>
 
   <div class="triangle"></div>
+  <!-- webcomponent -->
+  <template id="my-box-tem">
+    <h1>今天天气</h1>
+    <p><slot>今天天气很好</slot></p>
+  </template>
 
+  <my-box>
+    <p>今天天气很好ya</p>
+  </my-box>
+
+  <div class="flex-test">
+    <div class="item item1"></div>
+    <div class="item item2"></div>
+    <div class="item item3"></div>
+  </div>
+
+  <div>
+    文件上传：<input id="uploadFile" type="file" />
+  </div>
   <script>
     function log(info) {
       console.log(info)
     }
   </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
   <script type="module" src="../js/index.js"></script>
-  <script src="../utils/debounce-and-throttle.js"></script>
-  <script>
+  <!-- <script src="../utils/debounce-and-throttle.js"></script> -->
+  <!-- <script>
     addEventListener('onresize', function (e) {
       console.log(e)
     })
     window.onresize = function (e) {
       console.log(e)
     }
-  </script>
+  </script> -->
 </body>
 
 </html>

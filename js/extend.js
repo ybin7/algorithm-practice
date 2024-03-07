@@ -42,9 +42,6 @@ function Child3(name) {
 Child3.prototype = new Person()
 Child3.prototype.constructor = Child3
 
-
-
-
 /**
  * 原型式继承
  * createObj
@@ -85,5 +82,4 @@ const F = function (){}
 F.prototype = Person.prototype
 
 Child4.prototype = new F()
-
 
