@@ -12,7 +12,7 @@ function bubbling(arr = []) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
-        [ arr[j], arr[j + 1] ] = [ arr[j + 1], arr[j] ]
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
       }
     }
   }
@@ -62,29 +62,29 @@ function quick(arr = []) {
  * 5. 将新元素插入到下一个位置中
  * 6. 重复步骤2
  */
-function insert (arr = []) {
+function insert(arr = []) {
   if (!Array.isArray(arr)) return arr
 
-  for (let i = 1; i < arr.length; i++) {  
-    let key = arr[i];  
-    let j = i - 1;  
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
 
     // 将大于 key 的元素向后移动  
-    while (j >= 0 && arr[j] > key) {  
-        arr[j + 1] = arr[j];  
-        j = j - 1;  
-    }  
-    arr[j + 1] = key;  
-  }  
-  return arr;  
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
 }
 
-console.log(insert([1,3,4,2]))
+console.log(insert([1, 3, 4, 2]))
 
 function sleep(dely = 0) {
   const startTime = new Date().getTime()
 
-  while(new Date().getTime() - startTime < dely)
+  while (new Date().getTime() - startTime < dely)
     continue
 }
 
