@@ -25,7 +25,7 @@ console.timeEnd('fibonacci')
 function fibonacci2(n) {
   let meno = new Array(n + 1).fill(-1)
   meno[0] = 1
-  meno[1] = 1  
+  meno[1] = 1
 
   for (let i = 2; i <= n; i++) {
     meno[i] = meno[i - 1] + meno[i - 2]
@@ -147,7 +147,7 @@ console.log('--------------- 报数、反转字符串和字符串中的第一个
  * 1. 1 一个一， 所以下一项为 11
  * 2. 11 两个一，所以下一项为 21
  * 3. 21 一个二，一个一，所以下一项为 1211
- * 4. 1211 一个一，一个二，一个一，一个一 -> 111221
+ * 4. 1211 一个一，一个二，二个一 -> 111221
  * 5. 111221
  * @param { number } n
  * @return { string }
@@ -174,9 +174,9 @@ function countAndSay2(n) {
   for (const i of nArr) {
     if (obj.has(i)) {
       const val = obj.get(i) + 1
-      obj.set(i, val) 
+      obj.set(i, val)
     } else {
-      obj.set(i, 1) 
+      obj.set(i, 1)
     }
   }
   const sArr = []
@@ -302,7 +302,7 @@ console.log('--------------- 验证回文字符串、实现strStr()、最长公�
  */
 function isPalindrome(s) {
   const arr = s.toLowerCase().replace(/[^a-zA-Z0-9]\s*/g, '').split('')
-  
+
   /**
    * 也可以利用数组的字符串反转
    * arr.reverse().join('')
@@ -473,7 +473,7 @@ function longestCommonPrefix2(strs) {
   while (flag) {
     if (strs[0].length > i) {
       const char = strs[0].charAt(i)
-      
+
       for (let j = 1; j < strs.length; j++) {
         if (strs[j].length <= 1 || strs[j].charAt(i) !== char) {
           flag = false
@@ -567,7 +567,7 @@ function longestPalindrome2(s) {
 
   let start = 0,
     end = 0;
-  
+
   // 从中心向两边扩展
   const expendFromCenter = (s, left, right) => {
     while (left >= 0 && right < s.length && s[left] === s[right]) {
