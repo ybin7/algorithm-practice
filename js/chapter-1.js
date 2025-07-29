@@ -205,6 +205,41 @@ function countAndSay2(n) {
 console.log(countAndSay2(5))
 
 /**
+ * 方法三：递归
+ * 思路：递归的方式，先获取 n-1 的报数结果，然后
+ * 遍历 n-1 的报数结果，统计相同数字的个数
+ * 如果相同数字的个数大于 1，则将个数和数字拼接起来
+ * 如果相同数字的个数等于 1，则直接将数字拼接起来
+ * 最后返回拼接好的字符串
+ * @param {*} n 
+ * @returns 
+ */
+function countAndSay3(n) {
+  // 基本情况，如果 n 等于 1，直接返回字符串 "1"
+  if (n === 1) {
+    return '1';
+  }
+
+  let result = '';
+  const prev = countAndSay3(n - 1);
+  let count = 1;
+
+  for (let i = 1; i < prev.length; i++) {
+    if (prev[i] === prev[i - 1]) {
+      count++;
+    } else {
+      result += count + prev[i - 1];
+      count = 1;
+    }
+  }
+  // 处理最后一个字符
+  result += count + prev[prev.length - 1];
+
+  return result;
+}
+
+
+/**
  * 反转字符串
  * 输入 => ['h', 'e', 'l', 'l', 'o']
  * 输出 => ['o', 'l', 'l', 'e', 'h']
