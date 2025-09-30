@@ -1,7 +1,6 @@
 /**
  * 实现一个 reduce
  * 1. 接收一个函数， 一个初始化值，如果不传默认取数组第一个
- * 
  */
 Array.prototype.myReduce = function (callback, initialValue) {
   // 检查 callback 是否是函数
@@ -21,10 +20,11 @@ Array.prototype.myReduce = function (callback, initialValue) {
     accumulator = initialValue;
     startIndex = 0; // 从数组的第一个元素开始
   } else {
-    // 如果没有提供 initialValue，使用数组的第一个元素作为初始累积值
+    // 如果数组为空且没有提供 initialValue，抛出错误
     if (array.length === 0) {
       throw new TypeError("Reduce of an empty array with no initial value");
     }
+    // 如果没有提供 initialValue，使用数组的第一个元素作为初始累积值
     accumulator = array[0];
     startIndex = 1; // 从数组的第二个元素开始
   }
