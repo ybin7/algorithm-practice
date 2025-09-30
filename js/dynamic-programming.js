@@ -48,12 +48,13 @@ function maxNumber2(nums) {
     if (maxNumber < middleNum) {
       maxNumber = middleNum
     }
+    console.log({ middleNum, maxNumber })
   }
 
   return maxNumber
 }
 
-const numsArr = [-2,1,-3,4,-1,2,1,-5,4]
+const numsArr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 console.time()
 console.log(maxNumber2(numsArr))
 console.timeEnd()
